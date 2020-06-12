@@ -38,6 +38,7 @@
     "graphql": "14.5.8",
     "graphql-tools": "6.0.9",
     "jest": "26.0.1",
+    "jest-mock-extended": "^1.0.9",
     "prettier": "2.0.5",
     "semantic-release": "17.0.8",
     "ts-jest": "26.1.0",

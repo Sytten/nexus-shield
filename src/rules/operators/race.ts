@@ -28,7 +28,7 @@ export class RuleRace<
     let error: object | undefined;
     for (const res of result) {
       if (res.status === 'rejected') {
-        error = res.reason;
+        error = error || res.reason;
       } else if (res.value === true) {
         return true;
       }
@@ -58,14 +58,16 @@ export class RuleRace<
       return rule.resolve(root, args, ctx, info, options).then(
         (res) => {
           if (res === true) return [{ status: 'fulfilled', value: res }];
-          return iterate(otherRules).then((ress) =>
-            ress.concat([{ status: 'fulfilled', value: res }])
-          );
+          return iterate(otherRules).then((ress) => [
+            { status: 'fulfilled', value: res },
+            ...ress,
+          ]);
         },
         (err) => {
-          return iterate(otherRules).then((ress) =>
-            ress.concat([{ status: 'rejected', reason: err }])
-          );
+          return iterate(otherRules).then((ress) => [
+            { status: 'rejected', reason: err },
+            ...ress,
+          ]);
         }
       );
     }
