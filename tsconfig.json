@@ -6,6 +6,7 @@
     "noUnusedLocals": true,
     "rootDir": "src",
     "outDir": "dist",
+    "sourceMap": true,
     "lib": ["es2020"],
     "skipLibCheck": true,
     "strict": true
