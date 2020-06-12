@@ -1,12 +1,9 @@
+import { allow, nexusShield } from 'nexus-shield';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import * as path from 'path';
-import * as hash from 'objecy-hash';
 import { makeSchema } from '@nexus/schema';
 
-import { nexusShield } from '../src/plugin';
-
 import * as types from './schema';
-import { allow } from '../src/builders';
 
 const schema = makeSchema({
   types,
@@ -18,12 +15,11 @@ const schema = makeSchema({
     sources: [],
     contextType: '{ user: string }',
   },
-  prettierConfig: path.join(__dirname, '../.prettierrc'),
+  prettierConfig: path.join(__dirname, '../../.prettierrc'),
   plugins: [
     nexusShield({
       defaultError: new ForbiddenError('Not allowed'),
       defaultRule: allow,
-      hashFunction: hash,
     }),
   ],
 });
