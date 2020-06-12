@@ -41,17 +41,7 @@ const FieldShieldType = printedGenTyping({
 export type FieldShieldResolver<
   TypeName extends string,
   FieldName extends string
-> =
-  | ShieldRule<TypeName, FieldName>
-  | BaseRule<TypeName, FieldName>
-  | LogicRule<TypeName, FieldName>
-  | RuleAnd<TypeName, FieldName>
-  | RuleChain<TypeName, FieldName>
-  | RuleFalse
-  | RuleNot<TypeName, FieldName>
-  | RuleOr<TypeName, FieldName>
-  | RuleRace<TypeName, FieldName>
-  | RuleTrue;
+> = ShieldRule<TypeName, FieldName>;
 
 export const nexusShield = (settings: ShieldPluginSettings) => {
   const options = {

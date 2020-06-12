@@ -34,11 +34,11 @@ import {
  *
  */
 export const rule = (options?: ShieldRuleOptions) => <
-  TypeName extends string,
-  FieldName extends string
+  TypeName extends string = any,
+  FieldName extends string = any
 >(
   func: ShieldRuleFunction<TypeName, FieldName>
-) => {
+): ShieldRule<TypeName, FieldName> => {
   options = options || {};
   return new BaseRule<TypeName, FieldName>(options, func);
 };
@@ -77,7 +77,7 @@ export const ruleType = <
   FieldName extends string = any
 >(
   config: ShieldRuleConfig<TypeName, FieldName>
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new BaseRule<TypeName, FieldName>(config, config.resolve);
 };
 
@@ -90,7 +90,7 @@ export const ruleType = <
  */
 export const and = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new RuleAnd<TypeName, FieldName>(rules);
 };
 
@@ -103,7 +103,7 @@ export const and = <TypeName extends string, FieldName extends string>(
  */
 export const chain = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new RuleChain<TypeName, FieldName>(rules);
 };
 
@@ -116,7 +116,7 @@ export const chain = <TypeName extends string, FieldName extends string>(
  */
 export const race = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new RuleRace<TypeName, FieldName>(rules);
 };
 
@@ -129,7 +129,7 @@ export const race = <TypeName extends string, FieldName extends string>(
  */
 export const or = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new RuleOr<TypeName, FieldName>(rules);
 };
 
@@ -142,7 +142,7 @@ export const or = <TypeName extends string, FieldName extends string>(
  */
 export const not = <TypeName extends string, FieldName extends string>(
   rule: ShieldRule<TypeName, FieldName>
-) => {
+): ShieldRule<TypeName, FieldName> => {
   return new RuleNot<TypeName, FieldName>(rule);
 };
 
