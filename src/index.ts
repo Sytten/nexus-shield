@@ -1,2 +1,12 @@
-export * from './builders';
-export { nexusShield } from './plugin';
+export {
+  rule,
+  ruleType,
+  and,
+  or,
+  not,
+  race,
+  chain,
+  deny,
+  allow,
+} from './builders';
+export { nexusShield, FieldShieldResolver } from './plugin';
