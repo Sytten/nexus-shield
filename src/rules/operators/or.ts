@@ -28,7 +28,7 @@ export class RuleOr<
     let error: object | undefined;
     for (const res of result) {
       if (res.status === 'rejected') {
-        error = res.reason;
+        error = error || res.reason;
       } else if (res.value === true) {
         return true;
       }
