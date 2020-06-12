@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+
+*.log*
+.DS_Store
+.vscode
+.history
+.nyc_output
+package-lock.json

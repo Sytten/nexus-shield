@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "lib": ["es2020"],
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "examples", "dist"]
+}
