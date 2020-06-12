@@ -46,7 +46,14 @@ export interface NexusGenFieldTypes {
   };
 }
 
-export interface NexusGenArgTypes {}
+export interface NexusGenArgTypes {
+  Test: {
+    test: {
+      // args
+      name?: string | null; // String
+    };
+  };
+}
 
 export interface NexusGenAbstractResolveReturnTypes {}
 

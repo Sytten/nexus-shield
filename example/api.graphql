@@ -12,5 +12,5 @@ type Query {
 type Test {
   id: ID!
   prop: String!
-  test: EnumTest!
+  test(name: String): EnumTest!
 }

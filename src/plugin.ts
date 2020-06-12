@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as hash from 'object-hash';
 import { plugin } from '@nexus/schema';
 import {
@@ -6,25 +5,13 @@ import {
   printedGenTyping,
 } from '@nexus/schema/dist/utils';
 
-import {
-  ShieldRule,
-  ShieldContext,
-  BaseRule,
-  RuleAnd,
-  RuleChain,
-  RuleFalse,
-  RuleNot,
-  RuleOr,
-  RuleRace,
-  RuleTrue,
-  LogicRule,
-} from './rules';
+import { ShieldRule, ShieldContext } from './rules';
 import { ShieldPluginSettings } from './config';
 import { isShieldRule } from './utils';
 import { allow } from './builders';
 
 const FieldShieldImport = printedGenTypingImport({
-  module: '../src/plugin',
+  module: 'nexus-shield',
   bindings: ['FieldShieldResolver'],
 });
 
