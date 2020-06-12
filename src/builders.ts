@@ -12,14 +12,12 @@ import {
   RuleOr,
   RuleRace,
 } from './rules';
-import { TypeNameType, FieldNameType } from './typing';
 
 /**
  *
  * @param options
  *
- * Wraps a function into a BaseRule class. This way we can identify rules
- * once we start generating middleware from our ruleTree.
+ * Wraps a function into a BaseRule class.
  *
  * 1.
  * const auth = rule()(async (parent, args, ctx, info) => {
@@ -40,15 +38,33 @@ export const rule = (options?: ShieldRuleOptions) => <
   FieldName extends string
 >(
   func: ShieldRuleFunction<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
+) => {
   options = options || {};
   return new BaseRule<TypeName, FieldName>(options, func);
 };
 
-type ShieldRuleConfig<
-  TypeName extends TypeNameType,
-  FieldName extends FieldNameType
-> = {
+/**
+ *
+ * @param config
+ *
+ * Wraps a function into a BaseRule class.
+ *
+ * 1.
+ * const auth = rule()(async (parent, args, ctx, info) => {
+ *  return true
+ * })
+ *
+ * 2.
+ * const auth = rule({
+ *  name: 'name',
+ *  cache: ShieldCache.NO_CACHE,
+ * })(async (parent, args, ctx, info) => {
+ *  return true
+ * })
+ *
+ */
+
+type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
   type?: TypeName;
   field?: FieldName;
   name?: string;
@@ -56,12 +72,12 @@ type ShieldRuleConfig<
   resolve: ShieldRuleFunction<TypeName, FieldName>;
 };
 
-export const rule2 = <
-  TypeName extends TypeNameType = any,
-  FieldName extends FieldNameType = any
+export const ruleType = <
+  TypeName extends string = any,
+  FieldName extends string = any
 >(
   config: ShieldRuleConfig<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
+) => {
   return new BaseRule<TypeName, FieldName>(config, config.resolve);
 };
 
@@ -74,8 +90,8 @@ export const rule2 = <
  */
 export const and = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
-  return new RuleAnd(rules);
+) => {
+  return new RuleAnd<TypeName, FieldName>(rules);
 };
 
 /**
@@ -87,8 +103,8 @@ export const and = <TypeName extends string, FieldName extends string>(
  */
 export const chain = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
-  return new RuleChain(rules);
+) => {
+  return new RuleChain<TypeName, FieldName>(rules);
 };
 
 /**
@@ -100,8 +116,8 @@ export const chain = <TypeName extends string, FieldName extends string>(
  */
 export const race = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
-  return new RuleRace(rules);
+) => {
+  return new RuleRace<TypeName, FieldName>(rules);
 };
 
 /**
@@ -113,8 +129,8 @@ export const race = <TypeName extends string, FieldName extends string>(
  */
 export const or = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
-  return new RuleOr(rules);
+) => {
+  return new RuleOr<TypeName, FieldName>(rules);
 };
 
 /**
@@ -126,8 +142,8 @@ export const or = <TypeName extends string, FieldName extends string>(
  */
 export const not = <TypeName extends string, FieldName extends string>(
   rule: ShieldRule<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
-  return new RuleNot(rule);
+) => {
+  return new RuleNot<TypeName, FieldName>(rule);
 };
 
 /**

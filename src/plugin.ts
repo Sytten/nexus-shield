@@ -6,7 +6,19 @@ import {
   printedGenTyping,
 } from '@nexus/schema/dist/utils';
 
-import { ShieldRule, ShieldContext, BaseRule } from './rules';
+import {
+  ShieldRule,
+  ShieldContext,
+  BaseRule,
+  RuleAnd,
+  RuleChain,
+  RuleFalse,
+  RuleNot,
+  RuleOr,
+  RuleRace,
+  RuleTrue,
+  LogicRule,
+} from './rules';
 import { ShieldPluginSettings } from './config';
 import { isShieldRule } from './utils';
 import { allow } from './builders';
@@ -29,7 +41,17 @@ const FieldShieldType = printedGenTyping({
 export type FieldShieldResolver<
   TypeName extends string,
   FieldName extends string
-> = ShieldRule<TypeName, FieldName>;
+> =
+  | ShieldRule<TypeName, FieldName>
+  | BaseRule<TypeName, FieldName>
+  | LogicRule<TypeName, FieldName>
+  | RuleAnd<TypeName, FieldName>
+  | RuleChain<TypeName, FieldName>
+  | RuleFalse
+  | RuleNot<TypeName, FieldName>
+  | RuleOr<TypeName, FieldName>
+  | RuleRace<TypeName, FieldName>
+  | RuleTrue;
 
 export const nexusShield = (settings: ShieldPluginSettings) => {
   const options = {

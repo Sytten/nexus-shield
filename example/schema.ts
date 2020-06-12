@@ -1,5 +1,5 @@
 import { extendType, objectType, enumType } from '@nexus/schema';
-import { rule, deny, allow, rule2, and } from '../src';
+import { rule, allow, and, ruleType } from '../src';
 
 export const EnumTest = enumType({
   name: 'EnumTest',
@@ -21,6 +21,7 @@ export const Test = objectType({
         rule()((_root, _args, _ctx, _info) => {
           return true;
         }),
+        a,
         allow
       ),
       resolve(_root) {
@@ -30,8 +31,8 @@ export const Test = objectType({
   },
 });
 
-const a = rule2({
-  type: Test,
+const a = ruleType({
+  type: Test.name,
   resolve: (_root, _args, _ctx, _info) => {
     return true;
   },
