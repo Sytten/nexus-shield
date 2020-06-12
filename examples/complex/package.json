@@ -1,5 +1,5 @@
 {
-  "name": "simple",
+  "name": "complex",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
@@ -10,8 +10,7 @@
   "dependencies": {
     "@nexus/schema": "^0.14.0",
     "apollo-server": "^2.14.4",
-    "graphql": "^14.5.0",
-    "nexus-shield": "^1.0.1"
+    "graphql": "^14.5.0"
   },
   "devDependencies": {
     "@types/node": "13.13.12",
