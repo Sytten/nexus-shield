@@ -1,17 +1,19 @@
 import { GraphQLResolveInfo } from 'graphql';
-import {
-  RootValue,
-  ArgsValue,
-  GetGen,
-} from '@nexus/schema/dist/typegenTypeHelpers';
 
 import { ShieldRule, ShieldRuleResult, ShieldContext } from '../interface';
 import { LogicRule } from '../logic';
 import { ShieldPluginOptions } from '../../config';
+import {
+  TypeNameType,
+  FieldNameType,
+  RootValue,
+  ArgsValue,
+  GetGen,
+} from '../../typing';
 
 export class RuleOr<
-  TypeName extends string,
-  FieldName extends string
+  TypeName extends TypeNameType,
+  FieldName extends FieldNameType
 > extends LogicRule<TypeName, FieldName> {
   constructor(rules: ShieldRule<TypeName, FieldName>[]) {
     super(rules);

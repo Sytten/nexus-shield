@@ -6,12 +6,6 @@ export const EnumTest = enumType({
   members: ['test'],
 });
 
-const a = rule2<any, any>({
-  resolve: (_root, _args, _ctx, _info) => {
-    return true;
-  },
-});
-
 const b = rule()((_root, _args, _ctx, _info) => {
   return true;
 });
@@ -33,6 +27,13 @@ export const Test = objectType({
         return 'test';
       },
     });
+  },
+});
+
+const a = rule2({
+  type: Test,
+  resolve: (_root, _args, _ctx, _info) => {
+    return true;
   },
 });
 

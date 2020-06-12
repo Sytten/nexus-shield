@@ -12,6 +12,7 @@ import {
   RuleOr,
   RuleRace,
 } from './rules';
+import { TypeNameType, FieldNameType } from './typing';
 
 /**
  *
@@ -44,13 +45,21 @@ export const rule = (options?: ShieldRuleOptions) => <
   return new BaseRule<TypeName, FieldName>(options, func);
 };
 
-type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
+type ShieldRuleConfig<
+  TypeName extends TypeNameType,
+  FieldName extends FieldNameType
+> = {
+  type?: TypeName;
+  field?: FieldName;
   name?: string;
   cache?: ShieldCache;
   resolve: ShieldRuleFunction<TypeName, FieldName>;
 };
 
-export const rule2 = <TypeName extends string, FieldName extends string>(
+export const rule2 = <
+  TypeName extends TypeNameType = any,
+  FieldName extends FieldNameType = any
+>(
   config: ShieldRuleConfig<TypeName, FieldName>
 ): ShieldRule<TypeName, FieldName> => {
   return new BaseRule<TypeName, FieldName>(config, config.resolve);
