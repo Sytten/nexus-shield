@@ -1,0 +1,22 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -c",
+    "start": "ts-node-dev --no-notify --transpileOnly --respawn server.ts"
+  },
+  "dependencies": {
+    "@nexus/schema": "^0.14.0",
+    "apollo-server": "^2.14.4",
+    "graphql": "15.1.0",
+    "nexus-shield": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "13.13.12",
+    "ts-node": "8.10.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "3.9.5"
+  }
+}
