@@ -12,7 +12,7 @@ export const Test = objectType({
     t.id('id');
     t.string('prop', {
       shield: ruleType({
-        resolve(root, args, ctx) {
+        resolve(_root, _args, _ctx) {
           return true;
         },
       }),
