@@ -1,11 +1,16 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { RootValue, ArgsValue, GetGen } from '@nexus/schema/dist/core';
 
-import { ShieldRule, ShieldContext, ShieldRuleResult } from './interface';
+import {
+  ShieldRule,
+  ShieldContext,
+  ShieldRuleResult,
+  FullShieldRule,
+} from './interface';
 import { ShieldPluginOptions } from '../config';
 
 export class LogicRule<TypeName extends string, FieldName extends string>
-  implements ShieldRule<TypeName, FieldName> {
+  implements FullShieldRule<TypeName, FieldName> {
   protected rules: ShieldRule<TypeName, FieldName>[];
 
   constructor(rules: ShieldRule<TypeName, FieldName>[]) {

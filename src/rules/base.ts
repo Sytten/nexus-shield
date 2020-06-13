@@ -2,7 +2,7 @@ import { GraphQLResolveInfo } from 'graphql';
 import { RootValue, ArgsValue, GetGen } from '@nexus/schema/dist/core';
 
 import {
-  ShieldRule,
+  FullShieldRule,
   ShieldContext,
   ShieldRuleResult,
   ShieldRuleFunction,
@@ -12,7 +12,7 @@ import {
 import { ShieldPluginOptions } from '../config';
 
 export class BaseRule<TypeName extends string, FieldName extends string>
-  implements ShieldRule<TypeName, FieldName> {
+  implements FullShieldRule<TypeName, FieldName> {
   readonly name: string;
 
   private cache: ShieldCache;

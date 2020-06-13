@@ -25,7 +25,10 @@ export interface ShieldRuleOptions {
   cache?: ShieldCache;
 }
 
-export interface ShieldRule<TypeName extends string, FieldName extends string> {
+export interface FullShieldRule<
+  TypeName extends string,
+  FieldName extends string
+> {
   resolve(
     root: RootValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
@@ -34,6 +37,16 @@ export interface ShieldRule<TypeName extends string, FieldName extends string> {
     options: ShieldPluginOptions
   ): Promise<ShieldRuleResult>;
 }
+
+export interface PartialShieldRule<TypeName extends string>
+  extends FullShieldRule<TypeName, any> {}
+
+export interface GenericShieldRule extends FullShieldRule<any, any> {}
+
+export type ShieldRule<TypeName extends string, FieldName extends string> =
+  | FullShieldRule<TypeName, FieldName>
+  | PartialShieldRule<TypeName>
+  | GenericShieldRule;
 
 // Rule fonction
 export type ShieldRuleFunction<

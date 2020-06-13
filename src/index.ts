@@ -1,6 +1,10 @@
 export {
   rule,
   ruleType,
+  partialRule,
+  partialRuleType,
+  genericRule,
+  genericRuleType,
   and,
   or,
   not,
@@ -9,4 +13,5 @@ export {
   deny,
   allow,
 } from './builders';
+export { ShieldRule } from './rules';
 export { nexusShield, FieldShieldResolver } from './plugin';

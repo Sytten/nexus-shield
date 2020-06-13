@@ -1,5 +1,5 @@
 import {
-  ShieldRule,
+  FullShieldRule,
   BaseRule,
   ShieldRuleOptions,
   ShieldRuleFunction,
@@ -11,7 +11,9 @@ import {
   RuleNot,
   RuleOr,
   RuleRace,
+  ShieldRule,
 } from './rules';
+import { GenericShieldRule, PartialShieldRule } from './rules';
 
 /**
  *
@@ -33,14 +35,30 @@ import {
  * })
  *
  */
-export const rule = (options?: ShieldRuleOptions) => <
+export const rule = <
   TypeName extends string = any,
   FieldName extends string = any
 >(
+  options?: ShieldRuleOptions
+) => (
   func: ShieldRuleFunction<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   options = options || {};
   return new BaseRule<TypeName, FieldName>(options, func);
+};
+
+export const partialRule = <TypeName extends string>(
+  options?: ShieldRuleOptions
+) => (func: ShieldRuleFunction<TypeName, any>): PartialShieldRule<TypeName> => {
+  options = options || {};
+  return new BaseRule<TypeName, any>(options, func);
+};
+
+export const genericRule = (options?: ShieldRuleOptions) => (
+  func: ShieldRuleFunction<any, any>
+): GenericShieldRule => {
+  options = options || {};
+  return new BaseRule<any, any>(options, func);
 };
 
 /**
@@ -65,8 +83,6 @@ export const rule = (options?: ShieldRuleOptions) => <
  */
 
 type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
-  type?: TypeName;
-  field?: FieldName;
   name?: string;
   cache?: ShieldCache;
   resolve: ShieldRuleFunction<TypeName, FieldName>;
@@ -77,8 +93,20 @@ export const ruleType = <
   FieldName extends string = any
 >(
   config: ShieldRuleConfig<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new BaseRule<TypeName, FieldName>(config, config.resolve);
+};
+
+export const partialRuleType = <TypeName extends string = any>(
+  config: ShieldRuleConfig<TypeName, any> & { type: TypeName }
+): PartialShieldRule<TypeName> => {
+  return new BaseRule<TypeName, any>(config, config.resolve);
+};
+
+export const genericRuleType = (
+  config: ShieldRuleConfig<any, any>
+): GenericShieldRule => {
+  return new BaseRule<any, any>(config, config.resolve);
 };
 
 /**
@@ -90,7 +118,7 @@ export const ruleType = <
  */
 export const and = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new RuleAnd<TypeName, FieldName>(rules);
 };
 
@@ -103,7 +131,7 @@ export const and = <TypeName extends string, FieldName extends string>(
  */
 export const chain = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new RuleChain<TypeName, FieldName>(rules);
 };
 
@@ -116,7 +144,7 @@ export const chain = <TypeName extends string, FieldName extends string>(
  */
 export const race = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new RuleRace<TypeName, FieldName>(rules);
 };
 
@@ -129,7 +157,7 @@ export const race = <TypeName extends string, FieldName extends string>(
  */
 export const or = <TypeName extends string, FieldName extends string>(
   ...rules: ShieldRule<TypeName, FieldName>[]
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new RuleOr<TypeName, FieldName>(rules);
 };
 
@@ -142,7 +170,7 @@ export const or = <TypeName extends string, FieldName extends string>(
  */
 export const not = <TypeName extends string, FieldName extends string>(
   rule: ShieldRule<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
+): FullShieldRule<TypeName, FieldName> => {
   return new RuleNot<TypeName, FieldName>(rule);
 };
 
@@ -151,11 +179,11 @@ export const not = <TypeName extends string, FieldName extends string>(
  * Allow queries.
  *
  */
-export const allow = new RuleTrue();
+export const allow: GenericShieldRule = new RuleTrue();
 
 /**
  *
  * Deny queries.
  *
  */
-export const deny = new RuleFalse();
+export const deny: GenericShieldRule = new RuleFalse();
