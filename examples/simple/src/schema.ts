@@ -1,4 +1,4 @@
-import { extendType, objectType } from '@nexus/schema';
+import { extendType, objectType, stringArg } from '@nexus/schema';
 import { ruleType } from 'nexus-shield';
 
 export const Test = objectType({
@@ -6,6 +6,9 @@ export const Test = objectType({
   definition(t) {
     t.id('id');
     t.string('prop', {
+      args: {
+        filter: stringArg({ nullable: false }),
+      },
       shield: ruleType({
         resolve(_root, _args, _ctx) {
           return true;
