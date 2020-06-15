@@ -4,8 +4,8 @@
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -c",
-    "start": "ts-node-dev --no-notify --transpileOnly --respawn server.ts"
+    "build": "tsc -d",
+    "start": "ts-node-dev --no-notify --transpileOnly --respawn src/server.ts"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
