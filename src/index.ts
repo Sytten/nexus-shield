@@ -9,4 +9,5 @@ export {
   deny,
   allow,
 } from './builders';
+export { ShieldCache } from './rules';
 export { nexusShield, FieldShieldResolver } from './plugin';
