@@ -13,7 +13,7 @@ export type ShieldContext = {
 };
 
 // Cache
-export const enum ShieldCache {
+export enum ShieldCache {
   STRICT = 'strict',
   CONTEXTUAL = 'contextual',
   NO_CACHE = 'no_cache',
