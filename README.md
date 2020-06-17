@@ -174,7 +174,7 @@ export const Product = objectType({
 - The wrapper `Generic` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
-const isAuthenticated = Generic(
+const isAuthenticated = generic(
   ruleType({
     resolve: (root, args, ctx) => {
       // Only ctx is typed
@@ -184,7 +184,7 @@ const isAuthenticated = Generic(
 );
 
 // Note that `isAuthenticated` is a function
-const viewerIsAuthorized = Generic(chain(isAuthenticated()));
+const viewerIsAuthorized = generic(chain(isAuthenticated()));
 ```
 
 #### Partial rules:
@@ -193,7 +193,7 @@ const viewerIsAuthorized = Generic(chain(isAuthenticated()));
 - The wrapper `Partial` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
-const isAuthenticated = Partial(
+const isAuthenticated = partial(
   ruleType({
     type: Product.name, // or 'Product'
     resolve: (root, args, ctx) => {
@@ -204,7 +204,7 @@ const isAuthenticated = Partial(
 );
 
 // Note that `isAuthenticated` is a function
-const viewerIsAuthorized = Partial(chain(isAuthenticated()));
+const viewerIsAuthorized = partial(chain(isAuthenticated()));
 ```
 
 ### Known issues / limitations
