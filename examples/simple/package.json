@@ -11,7 +11,7 @@
     "@nexus/schema": "^0.14.0",
     "apollo-server": "^2.14.4",
     "graphql": "^14.5.0",
-    "nexus-shield": "^1.0.1"
+    "nexus-shield": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "13.13.12",

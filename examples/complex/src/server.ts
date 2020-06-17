@@ -4,6 +4,7 @@ import * as path from 'path';
 import { makeSchema } from '@nexus/schema';
 
 import * as types from './schema';
+import { createContext } from './context';
 
 const schema = makeSchema({
   types,
@@ -12,8 +13,13 @@ const schema = makeSchema({
     typegen: path.join(__dirname.replace(/\/dist$/, '/src'), 'typegen.ts'),
   },
   typegenAutoConfig: {
-    sources: [],
-    contextType: '{ user: string }',
+    sources: [
+      {
+        source: path.join(__dirname.replace(/\/dist$/, '/src'), './context.ts'),
+        alias: 'ctx',
+      },
+    ],
+    contextType: 'ctx.Context',
   },
   plugins: [
     nexusShield({
@@ -26,6 +32,7 @@ const schema = makeSchema({
 
 const server = new ApolloServer({
   schema,
+  context: createContext,
 });
 
 const port = process.env.PORT || 4000;

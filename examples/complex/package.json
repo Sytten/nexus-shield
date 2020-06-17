@@ -5,12 +5,13 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -c",
-    "start": "ts-node-dev --no-notify --transpileOnly --respawn server.ts"
+    "start": "ts-node-dev --no-notify --transpileOnly --respawn src/server.ts"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
     "apollo-server": "^2.14.4",
-    "graphql": "^14.5.0"
+    "graphql": "^14.5.0",
+    "nexus-shield": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "13.13.12",
