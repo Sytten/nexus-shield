@@ -25,12 +25,16 @@ yarn add nexus-shield
 
 ### Nexus configuration
 
-The plugin first needs to be installed in nexus. This will add the new `shield` parameter. The plugin will work without any provided configuration, but it is recommended to provide one that is relevant to your application.
+The plugin first needs to be installed in nexus. This will add the new `shield` parameter. The plugin will work without any provided configuration, but it is recommended to provide one that is relevant to your application. The available parameters are:
+
+- `defaultError`: The error that is thrown if the access is denied. See the [errors section](#Error).
+- `defaultRule`: Rule that is used if none is specified for a field.
+- `hashFunction`: Function used to hash the input to provide [caching keys](#Caching).
 
 For example, using an [Apollo server](https://www.apollographql.com/server/):
 
 ```typescript
-import { nexusShield } from 'nexus-shield';
+import { nexusShield, allow } from 'nexus-shield';
 import { ForbiddenError } from 'apollo-server';
 
 const schema = makeSchema({
@@ -46,7 +50,7 @@ const schema = makeSchema({
 
 ### Styles
 
-Two interfaces styles are provided for convenience: `Graphql-Shield` and `Nexus`
+Two interfaces styles are provided for convenience: `Graphql-Shield` and `Nexus`.
 
 #### Graphql-Shield
 
@@ -68,7 +72,9 @@ ruleType({
 
 ### Error
 
-A rule needs to return a `boolean`, a `Promise<boolean>` or throw an `Error`. Contrary to Graphql-shield, this plugin will **NOT** catch the errors you throw and will just pass them down to the next plugins and eventually to the server. If `false` is returned, the configured `defaultError` will be thrown by the plugin.
+- A rule needs to return a `boolean`, a `Promise<boolean>` or throw an `Error`.
+- Contrary to Graphql-shield, this plugin will **NOT** catch the errors you throw and will just pass them down to the next plugins and eventually to the server
+- If `false` is returned, the configured `defaultError` will be thrown by the plugin.
 
 ```typescript
 import { AuthenticationError } from 'apollo-server';
@@ -86,7 +92,7 @@ const isAuthenticated = ruleType({
 
 Rules can be combined in a very flexible manner. The plugin provides the following operators:
 
-- `and`: Returns `true` if **all** rules returns `true`
+- `and`: Returns `true` if **all** rules return `true`
 - `or`: Returns `true` if **one** rule returns `true`
 - `not`: Inverts the result of a rule
 - `chain`: Same as `and`, but rules are executed in order
@@ -226,11 +232,37 @@ const viewerIsAuthorized = partial<'Product'>(
 );
 ```
 
-However, if you specify it directly in the `shield` field, there is not need for an hlper thus no need for a parameter.
+However, if you specify it directly in the `shield` field, there is not need for an helper thus no need for a parameter.
 
 ```typescript
 t.string('prop', {
   shield: chain(isAuthenticated(), viewerIsOwner()),
+});
+```
+
+### Caching
+
+- The result of a rule can be cached to maximize performances. This is important when using generic or partial rules that require access to external data.
+- The caching is **always** scoped to the request
+
+The plugin offers 3 levels of caching:
+
+- `NO_CACHE`: No caching is done (default)
+- `CONTEXTUAL`: Use when the rule only depends on the `ctx`
+- `STRICT`: Use when the rule depends on the `root` or `args`
+
+Usage:
+
+```typescript
+rule({ cache: ShieldCache.STRICT })((root, args, ctx) => {
+  return true;
+});
+
+ruleType({
+  cache: ShieldCache.STRICT,
+  resolve: (root, args, ctx) => {
+    return !!ctx.user;
+  },
 });
 ```
 
