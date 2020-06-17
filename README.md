@@ -60,7 +60,7 @@ rule()((root, args, ctx) => {
 
 ```typescript
 ruleType({
-  resolve: (root, args, ctx, info) => {
+  resolve: (root, args, ctx) => {
     return !!ctx.user;
   },
 });
