@@ -149,17 +149,22 @@ This plugin will try its best to provide typing to the rules.
 - If creating generic or partial rules, use the appropriate helpers (see below).
 
 ```typescript
+export type Context = {
+  user?: { id: string };
+};
+
 export const Product = objectType({
   name: 'Product',
   definition(t) {
     t.id('id');
+    t.string('ownerId');
     t.string('prop', {
       args: {
         filter: stringArg({ nullable: false }),
       },
       shield: ruleType({
         resolve: (root, args, ctx) => {
-          // root => { id: string }, args => { filter: string }
+          // root => { id: string }, args => { filter: string }, ctx => Context
           return true;
         },
       }),
@@ -171,42 +176,66 @@ export const Product = objectType({
 #### Generic rules
 
 - Generic rules are rules that do not depend on the type of the `root` or `args`.
-- The wrapper `Generic` is provided for this purpose. It will wrap your rule in a generic function.
+- The wrapper `generic` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
 const isAuthenticated = generic(
   ruleType({
     resolve: (root, args, ctx) => {
       // Only ctx is typed
-      return true;
+      return !!ctx.user;
     },
   })
 );
 
-// Note that `isAuthenticated` is a function
-const viewerIsAuthorized = generic(chain(isAuthenticated()));
+// Usage
+t.string('prop', {
+  shield: isAuthenticated(),
+});
 ```
 
-#### Partial rules:
+#### Partial rules
 
 - Generic rules are rules that depend only on the type of the `root`.
-- The wrapper `Partial` is provided for this purpose. It will wrap your rule in a generic function.
+- The wrapper `partial` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
-const isAuthenticated = partial(
+const viewerIsOwner = partial(
   ruleType({
-    type: Product.name, // or 'Product'
+    type: 'Product' // It is also possible to use the generic parameter of `partial`
     resolve: (root, args, ctx) => {
       // Both root and ctx are typed
-      return true;
+      return root.ownerId === ctx.user.id;
     },
   })
 );
 
-// Note that `isAuthenticated` is a function
-const viewerIsAuthorized = partial(chain(isAuthenticated()));
+// Usage
+t.string('prop', {
+  shield: viewerIsOwner(),
+});
+```
+
+#### Combining rules
+
+If you mix and match generic rules with partial rules, you will need to specify the type in the parent helper.
+
+```typescript
+const viewerIsAuthorized = partial<'Product'>(
+  chain(isAuthenticated(), viewerIsOwner())
+);
+```
+
+However, if you specify it directly in the `shield` field, there is not need for an hlper thus no need for a parameter.
+
+```typescript
+t.string('prop', {
+  shield: chain(isAuthenticated(), viewerIsOwner()),
+});
 ```
 
 ### Known issues / limitations
 
 - It is not possible to pass directly an `objectType` to the parameter `type` of a `ruleType`. Tracked by issue: https://github.com/graphql-nexus/schema/issues/451
+
+- The helpers are necessary to provide strong typing and avoid the propagation of `any`. See [this StackOverflow issue](https://stackoverflow.com/questions/62363077/combining-typescript-generics-with-any-without-losing-type/62435780#62435780) for more on the subject.
