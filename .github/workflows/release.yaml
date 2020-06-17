@@ -24,6 +24,9 @@ jobs:
       - name: Run tests
         run: yarn test
 
+      - name: Upload corage
+        run: yarn coverage
+
       - name: Build package
         run: yarn build
 
