@@ -161,7 +161,7 @@ export const deny = new RuleFalse();
  * Helper for generic rules
  *
  */
-export const Generic = (rule: ShieldRule<any, any>) => <
+export const generic = (rule: ShieldRule<any, any>) => <
   Type extends string,
   Field extends string
 >(): ShieldRule<Type, Field> => rule;
@@ -171,7 +171,7 @@ export const Generic = (rule: ShieldRule<any, any>) => <
  * Helper for partial rules
  *
  */
-export const Partial = <Type extends string>(rule: ShieldRule<Type, any>) => <
+export const partial = <Type extends string>(rule: ShieldRule<Type, any>) => <
   T extends Type, // NOTE: It would be best to do someting with this type
   Field extends string
 >(): ShieldRule<Type, Field> => rule;
