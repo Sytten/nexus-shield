@@ -34,8 +34,8 @@ import {
  *
  */
 export const rule = (options?: ShieldRuleOptions) => <
-  TypeName extends string = any,
-  FieldName extends string = any
+  TypeName extends string,
+  FieldName extends string
 >(
   func: ShieldRuleFunction<TypeName, FieldName>
 ): ShieldRule<TypeName, FieldName> => {
@@ -66,16 +66,12 @@ export const rule = (options?: ShieldRuleOptions) => <
 
 type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
   type?: TypeName;
-  field?: FieldName;
   name?: string;
   cache?: ShieldCache;
   resolve: ShieldRuleFunction<TypeName, FieldName>;
 };
 
-export const ruleType = <
-  TypeName extends string = any,
-  FieldName extends string = any
->(
+export const ruleType = <TypeName extends string, FieldName extends string>(
   config: ShieldRuleConfig<TypeName, FieldName>
 ): ShieldRule<TypeName, FieldName> => {
   return new BaseRule<TypeName, FieldName>(config, config.resolve);
@@ -159,3 +155,23 @@ export const allow = new RuleTrue();
  *
  */
 export const deny = new RuleFalse();
+
+/**
+ *
+ * Helper for generic rules
+ *
+ */
+export const Generic = (rule: ShieldRule<any, any>) => <
+  Type extends string,
+  Field extends string
+>(): ShieldRule<Type, Field> => rule;
+
+/**
+ *
+ * Helper for partial rules
+ *
+ */
+export const Partial = <Type extends string>(rule: ShieldRule<Type, any>) => <
+  T extends Type, // NOTE: It would be best to do someting with this type
+  Field extends string
+>(): ShieldRule<Type, Field> => rule;
