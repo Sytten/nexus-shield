@@ -1,7 +1,11 @@
 # nexus-shield
 
+[![Github Actions](https://github.com/Sytten/nexus-shield/workflows/Release/badge.svg)](https://circleci.com/gh/maticzav/graphql-shield/tree/master)
+[![codecov](https://codecov.io/gh/Sytten/nexus-shield/branch/master/graph/badge.svg)](https://codecov.io/gh/Sytten/nexus-shield)
+[![npm version](https://badge.fury.io/js/nexus-shield.svg)](https://badge.fury.io/js/nexus-shield)
+
 **STATUS: EXPERIMENTAL**
-The package is not ready for production usage, use at your own risk. The API is likely to change and tests have not yet been written.
+The package has not yet been battle tested, use at your own risk and report any bug you find.
 
 ## Overview
 
@@ -10,6 +14,10 @@ Nexus Shield is a [@nexus/schema](https://github.com/graphql-nexus/schema) plugi
 ## Install
 
 ```bash
+npm install --save nexus-shield
+
+OR
+
 yarn add nexus-shield
 ```
 
@@ -43,7 +51,7 @@ Two interfaces styles are provided for convenience: `Graphql-Shield` and `Nexus`
 #### Graphql-Shield
 
 ```typescript
-const isAuthenticated = rule()((root, args, ctx, info) => {
+rule()((root, args, ctx) => {
   return !!ctx.user;
 });
 ```
@@ -51,7 +59,7 @@ const isAuthenticated = rule()((root, args, ctx, info) => {
 #### Nexus
 
 ```typescript
-const isAuthenticated = ruleType({
+ruleType({
   resolve: (root, args, ctx, info) => {
     return !!ctx.user;
   },
@@ -66,7 +74,7 @@ A rule needs to return a `boolean`, a `Promise<boolean>` or throw an `Error`. Co
 import { AuthenticationError } from 'apollo-server';
 
 const isAuthenticated = ruleType({
-  resolve: (root, args, ctx, info) => {
+  resolve: (root, args, ctx) => {
     const allowed = !!ctx.user;
     if (!allowed) return new AuthenticationError('Bearer token required');
     return allowed;
@@ -93,14 +101,14 @@ import { chain, not, ruleType } from 'nexus-shield';
 
 const hasScope = (scope: string) => {
   return ruleType({
-    resolve: (root, args, ctx, info) => {
+    resolve: (root, args, ctx) => {
       return ctx.user.permissions.includes(scope);
     },
   });
 };
 
 const backlist = ruleType({
-  resolve: (root, args, ctx, info) => {
+  resolve: (root, args, ctx) => {
     return ctx.user.token === 'some-token';
   },
 });
@@ -122,7 +130,11 @@ export const Product = objectType({
   definition(t) {
     t.id('id');
     t.string('prop', {
-      shield: isAuthenticated,
+      shield: ruleType({
+        resolve: (root, args, ctx) => {
+          return !!ctx.user;
+        },
+      }),
     });
   },
 });
@@ -134,6 +146,7 @@ This plugin will try its best to provide typing to the rules.
 
 - It is **preferable** to define rules directly in the `definition` to have access to the full typing of `root` and `args`.
 - The `ctx` is always typed if it was properly configured in nexus `makeSchema`.
+- If creating generic or partial rules, use the appropriate helpers (see below).
 
 ```typescript
 export const Product = objectType({
@@ -141,9 +154,12 @@ export const Product = objectType({
   definition(t) {
     t.id('id');
     t.string('prop', {
+      args: {
+        filter: stringArg({ nullable: false }),
+      },
       shield: ruleType({
-        resolve: (root, args, ctx, info) => {
-          // root => { id: string }, args => {}
+        resolve: (root, args, ctx) => {
+          // root => { id: string }, args => { filter: string }
           return true;
         },
       }),
@@ -152,66 +168,45 @@ export const Product = objectType({
 });
 ```
 
-Note that is is also possible to type rules created outside of the `definition`.
+#### Generic rules
 
-#### Using generics:
+- Generic rules are rules that do not depend on the type of the `root` or `args`.
+- The wrapper `Generic` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
-const isAuthenticated = ruleType<'Product', any>({
-  resolve: (root, args, ctx, info) => {
-    // root will be typed, but not args
-    const allowed = !!ctx.user;
-    if (!allowed) return new AuthenticationError('Bearer token required');
-    return allowed;
-  },
-});
+const isAuthenticated = Generic(
+  ruleType({
+    resolve: (root, args, ctx) => {
+      // Only ctx is typed
+      return true;
+    },
+  })
+);
+
+// Note that `isAuthenticated` is a function
+const viewerIsAuthorized = Generic(chain(isAuthenticated()));
 ```
 
-#### Using parameters:
+#### Partial rules:
+
+- Generic rules are rules that depend only on the type of the `root`.
+- The wrapper `Partial` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
-const isAuthenticated = ruleType({
-  type: Product.name, // or 'Product'
-  field: 'prop',
-  resolve: (root, args, ctx, info) => {
-    // both root and args are typed
-    const allowed = !!ctx.user;
-    if (!allowed) return new AuthenticationError('Bearer token required');
-    return allowed;
-  },
-});
+const isAuthenticated = Partial(
+  ruleType({
+    type: Product.name, // or 'Product'
+    resolve: (root, args, ctx) => {
+      // Both root and ctx are typed
+      return true;
+    },
+  })
+);
+
+// Note that `isAuthenticated` is a function
+const viewerIsAuthorized = Partial(chain(isAuthenticated()));
 ```
 
 ### Known issues / limitations
-
-- If using untyped rules, the `any` will back propagate through the operators. This causes rules to be accepted even if they are not compatible.
-
-```typescript
-const badRule = ruleType({
-  type: 'AnotherType',
-  resolve: (root, args, ctx, info) => {
-    return true;
-  },
-});
-
-export const Product = objectType({
-  name: 'Product',
-  definition(t) {
-    t.id('id');
-    t.string('prop', {
-      shield: chain(
-        badRule, // Is wrongly allowed because isAuthenticated caused chain to become ShieldRule<any, any>
-        isAuthenticated,
-        ruleType({
-          resolve: (root, args, ctx, info) => {
-            // root and args are properly typed
-            return true;
-          },
-        })
-      ),
-    });
-  },
-});
-```
 
 - It is not possible to pass directly an `objectType` to the parameter `type` of a `ruleType`. Tracked by issue: https://github.com/graphql-nexus/schema/issues/451
