@@ -24,8 +24,10 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Upload corage
+      - name: Upload coverage
         run: yarn coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build package
         run: yarn build
