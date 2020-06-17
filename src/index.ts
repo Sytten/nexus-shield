@@ -8,8 +8,8 @@ export {
   chain,
   deny,
   allow,
-  Generic,
-  Partial,
+  generic,
+  partial,
 } from './builders';
 export { ShieldCache } from './rules';
 export { nexusShield, FieldShieldResolver } from './plugin';
