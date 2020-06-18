@@ -16,7 +16,7 @@ module.exports = {
     'plugin:import/errors',
   ],
   plugins: ['simple-import-sort'],
-  ignorePatterns: ['**/node_modules/'],
+  ignorePatterns: ['**/node_modules/', '**/examples/'],
   settings: {
     'import/resolver': {
       typescript: {

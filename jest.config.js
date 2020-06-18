@@ -6,4 +6,9 @@ module.exports = {
   coverageDirectory: './coverage',
   collectCoverageFrom: ['src/**/*.ts'],
   verbose: true,
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.test.json',
+    },
+  },
 };
