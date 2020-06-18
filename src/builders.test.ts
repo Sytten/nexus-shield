@@ -3,8 +3,10 @@ import {
   and,
   chain,
   deny,
+  generic,
   not,
   or,
+  partial,
   race,
   rule,
   ruleType,
@@ -90,5 +92,19 @@ describe('Builders Tests', () => {
 
   test('deny is a RuleFalse', () => {
     expect(deny).toBeInstanceOf(RuleFalse);
+  });
+
+  test('partial returns a fonction that returns a rule', () => {
+    const result = partial(rule()(() => true));
+
+    expect(result).toBeInstanceOf(Function);
+    expect(result()).toBeInstanceOf(BaseRule);
+  });
+
+  test('generic returns a fonction that returns a rule', () => {
+    const result = generic(rule()(() => true));
+
+    expect(result).toBeInstanceOf(Function);
+    expect(result()).toBeInstanceOf(BaseRule);
   });
 });
