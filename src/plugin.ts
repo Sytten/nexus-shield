@@ -1,14 +1,14 @@
 import * as hash from 'object-hash';
 import { plugin } from '@nexus/schema';
 import {
-  printedGenTypingImport,
   printedGenTyping,
+  printedGenTypingImport,
 } from '@nexus/schema/dist/utils';
 
-import { ShieldRule, ShieldContext } from './rules';
-import { ShieldPluginSettings } from './config';
-import { isShieldRule } from './utils';
 import { allow } from './builders';
+import { isShieldRule } from './utils';
+import { ShieldContext, ShieldRule } from './rules';
+import { ShieldPluginSettings } from './config';
 
 const FieldShieldImport = printedGenTypingImport({
   module: 'nexus-shield',

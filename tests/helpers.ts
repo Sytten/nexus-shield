@@ -1,7 +1,7 @@
 import * as hash from 'object-hash';
 
-import { ShieldPluginOptions } from '../src/config';
 import { allow } from '../src/builders';
+import { ShieldPluginOptions } from '../src/config';
 import { LogicRule, ShieldRuleResult } from '../src/rules';
 
 export const pluginOptions: ShieldPluginOptions = {

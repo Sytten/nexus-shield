@@ -1,4 +1,4 @@
-import { ShieldRule, BaseRule } from './rules';
+import { BaseRule, ShieldRule } from './rules';
 
 /**
  *

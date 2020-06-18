@@ -13,9 +13,19 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
+    'plugin:import/errors',
   ],
+  plugins: ['simple-import-sort'],
   ignorePatterns: ['**/node_modules/'],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        directory: './tsconfig.json',
+      },
+    },
+  },
   rules: {
+    'simple-import-sort/sort': 'error',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
