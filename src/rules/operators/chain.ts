@@ -53,12 +53,17 @@ export class RuleChain<
       FieldName
     >[]): Promise<PromiseSettledResult<ShieldRuleResult>[]> {
       if (rule === undefined) return [];
-      return rule.resolve(root, args, ctx, info, options).then((res) => {
-        if (res !== true) return [{ status: 'fulfilled', value: res }];
-        return iterate(otherRules).then((ress) =>
-          ress.concat([{ status: 'fulfilled', value: res }])
-        );
-      });
+      return rule.resolve(root, args, ctx, info, options).then(
+        (res) => {
+          if (res !== true) return [{ status: 'fulfilled', value: res }];
+          return iterate(otherRules).then((ress) =>
+            ress.concat([{ status: 'fulfilled', value: res }])
+          );
+        },
+        (err) => {
+          return [{ status: 'rejected', reason: err }];
+        }
+      );
     }
   }
 }
