@@ -1,12 +1,11 @@
-import { mock, MockProxy } from 'jest-mock-extended';
 import { GraphQLResolveInfo } from 'graphql';
-
-import { RuleRace } from './race';
-import { RuleTrue } from './true';
-import { RuleFalse } from './false';
-import { ShieldRule } from '../interface';
+import { mock, MockProxy } from 'jest-mock-extended';
 
 import { pluginOptions, RuleThrow } from '../../../tests/helpers';
+import { ShieldRule } from '../interface';
+import { RuleFalse } from './false';
+import { RuleRace } from './race';
+import { RuleTrue } from './true';
 
 describe('RuleRace Tests', () => {
   let info: MockProxy<GraphQLResolveInfo>;

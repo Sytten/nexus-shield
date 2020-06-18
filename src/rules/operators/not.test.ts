@@ -1,11 +1,10 @@
-import { mock, MockProxy } from 'jest-mock-extended';
 import { GraphQLResolveInfo } from 'graphql';
-
-import { RuleNot } from './not';
-import { RuleTrue } from './true';
-import { RuleFalse } from './false';
+import { mock, MockProxy } from 'jest-mock-extended';
 
 import { pluginOptions, RuleThrow } from '../../../tests/helpers';
+import { RuleFalse } from './false';
+import { RuleNot } from './not';
+import { RuleTrue } from './true';
 
 describe('RuleNot Tests', () => {
   let info: MockProxy<GraphQLResolveInfo>;

@@ -1,5 +1,5 @@
+import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
-import { RootValue, ArgsValue, GetGen } from '@nexus/schema/dist/core';
 
 import { ShieldPluginOptions } from '../config';
 

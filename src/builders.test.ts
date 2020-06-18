@@ -1,24 +1,24 @@
 import {
+  allow,
+  and,
+  chain,
+  deny,
+  not,
+  or,
+  race,
   rule,
   ruleType,
-  and,
-  allow,
-  or,
-  chain,
-  race,
-  not,
-  deny,
 } from './builders';
 import {
   BaseRule,
-  ShieldCache,
   RuleAnd,
-  RuleOr,
   RuleChain,
-  RuleRace,
-  RuleNot,
-  RuleTrue,
   RuleFalse,
+  RuleNot,
+  RuleOr,
+  RuleRace,
+  RuleTrue,
+  ShieldCache,
 } from './rules';
 
 describe('Builders Tests', () => {

@@ -1,15 +1,15 @@
+import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
-import { RootValue, ArgsValue, GetGen } from '@nexus/schema/dist/core';
 
-import {
-  ShieldRule,
-  ShieldContext,
-  ShieldRuleResult,
-  ShieldRuleFunction,
-  ShieldCache,
-  ShieldRuleOptions,
-} from './interface';
 import { ShieldPluginOptions } from '../config';
+import {
+  ShieldCache,
+  ShieldContext,
+  ShieldRule,
+  ShieldRuleFunction,
+  ShieldRuleOptions,
+  ShieldRuleResult,
+} from './interface';
 
 export class BaseRule<TypeName extends string, FieldName extends string>
   implements ShieldRule<TypeName, FieldName> {
