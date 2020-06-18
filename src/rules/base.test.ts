@@ -1,11 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { MockProxy, mock } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
 import { mockFn } from 'jest-mock-extended/lib/Mock'; // FIXME: https://github.com/marchaos/jest-mock-extended/pull/42
 
-import { ShieldRuleFunction, ShieldCache } from './interface';
-import { BaseRule } from './base';
-
 import { pluginOptions } from '../../tests/helpers';
+import { BaseRule } from './base';
+import { ShieldCache, ShieldRuleFunction } from './interface';
 
 describe('BaseRule Tests', () => {
   let info: MockProxy<GraphQLResolveInfo>;

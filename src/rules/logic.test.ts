@@ -1,10 +1,9 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { MockProxy, mock } from 'jest-mock-extended';
-
-import { ShieldRule } from './interface';
-import { LogicRule } from './logic';
+import { mock, MockProxy } from 'jest-mock-extended';
 
 import { pluginOptions } from '../../tests/helpers';
+import { ShieldRule } from './interface';
+import { LogicRule } from './logic';
 
 describe('LogicRule Tests', () => {
   let info: MockProxy<GraphQLResolveInfo>;

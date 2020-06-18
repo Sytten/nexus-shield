@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 
-import { ShieldRule, ShieldContext } from './rules';
+import { ShieldContext, ShieldRule } from './rules';
 
 type HashFunction = (arg: { root: any; args: any }) => string;
 
