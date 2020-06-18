@@ -1,9 +1,9 @@
+import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
-import { RootValue, ArgsValue, GetGen } from '@nexus/schema/dist/core';
 
-import { ShieldRule, ShieldRuleResult, ShieldContext } from '../interface';
-import { LogicRule } from '../logic';
 import { ShieldPluginOptions } from '../../config';
+import { ShieldContext, ShieldRule, ShieldRuleResult } from '../interface';
+import { LogicRule } from '../logic';
 
 export class RuleOr<
   TypeName extends string,

@@ -1,16 +1,16 @@
 import {
-  ShieldRule,
   BaseRule,
-  ShieldRuleOptions,
-  ShieldRuleFunction,
-  RuleTrue,
-  RuleFalse,
-  ShieldCache,
   RuleAnd,
   RuleChain,
+  RuleFalse,
   RuleNot,
   RuleOr,
   RuleRace,
+  RuleTrue,
+  ShieldCache,
+  ShieldRule,
+  ShieldRuleFunction,
+  ShieldRuleOptions,
 } from './rules';
 
 /**
