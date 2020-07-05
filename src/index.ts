@@ -1,3 +1,4 @@
+export * from './framework';
 export {
   rule,
   ruleType,

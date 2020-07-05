@@ -11,7 +11,7 @@ import { ShieldContext, ShieldRule } from './rules';
 import { isShieldRule } from './utils';
 
 const FieldShieldImport = printedGenTypingImport({
-  module: 'nexus-shield',
+  module: 'nexus-shield/schema',
   bindings: ['FieldShieldResolver'],
 });
 
