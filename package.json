@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@nexus/schema": "0.14.0",
-    "@types/jest": "26.0.3",
+    "@types/jest": "26.0.4",
     "@types/node": "13.13.12",
     "@types/object-hash": "1.3.3",
     "@types/request-promise-native": "1.0.17",
