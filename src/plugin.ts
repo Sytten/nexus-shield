@@ -19,7 +19,7 @@ const FieldShieldType = printedGenTyping({
   optional: true,
   name: 'shield',
   description: `
-    Rule to execute
+    Authorization rule to execute for this field
   `,
   type: 'FieldShieldResolver<TypeName, FieldName>',
   imports: [FieldShieldImport],
@@ -29,6 +29,26 @@ export type FieldShieldResolver<
   TypeName extends string,
   FieldName extends string
 > = ShieldRule<TypeName, FieldName>;
+
+const ObjectTypeShieldImport = printedGenTypingImport({
+  module: 'nexus-shield',
+  bindings: ['ObjectTypeShieldResolver'],
+});
+
+const ObjectTypeFieldShieldType = printedGenTyping({
+  optional: true,
+  name: 'shield',
+  description: `
+    Default authorization rule to execute on all fields of this object
+  `,
+  type: 'ObjectTypeShieldResolver<TypeName>',
+  imports: [ObjectTypeShieldImport],
+});
+
+export type ObjectTypeShieldResolver<TypeName extends string> = ShieldRule<
+  TypeName,
+  never
+>;
 
 export const nexusShield = (settings: ShieldPluginSettings) => {
   const options = {
@@ -41,13 +61,18 @@ export const nexusShield = (settings: ShieldPluginSettings) => {
     name: 'Nexus Shield Plugin',
     description: 'Ease the creation of the authorization layer',
     fieldDefTypes: FieldShieldType,
+    objectTypeDefTypes: ObjectTypeFieldShieldType,
     onCreateFieldResolver(config) {
       // Find the field rule
+      const objectRule =
+        config.parentTypeConfig.extensions?.nexus?.config.shield;
       const fieldRule = config.fieldConfig.extensions?.nexus?.config.shield;
 
       let rule: ShieldRule<any, any> | undefined;
       if (isShieldRule(fieldRule)) {
         rule = fieldRule;
+      } else if (isShieldRule(objectRule)) {
+        rule = objectRule;
       } else if (options.defaultRule) {
         rule = options.defaultRule;
       }
