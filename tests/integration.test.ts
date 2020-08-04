@@ -17,7 +17,6 @@ describe('Integration tests', () => {
     const query = gql`
       query {
         test {
-          id
           publicProp
         }
       }
@@ -25,14 +24,13 @@ describe('Integration tests', () => {
 
     const result = await client.query({ query });
 
-    expect(result.data).toEqual({ test: { id: 'BEEF', publicProp: 'public' } });
+    expect(result.data).toEqual({ test: { publicProp: 'public' } });
   });
 
   test('Server should return default error if not authorized', async () => {
     const query = gql`
       query {
         test {
-          id
           privateProp
         }
       }
@@ -47,7 +45,6 @@ describe('Integration tests', () => {
     const query = gql`
       query {
         test {
-          id
           throwProp
         }
       }
@@ -56,5 +53,19 @@ describe('Integration tests', () => {
     const result = await client.query({ query });
 
     expect(result.errors[0].message).toEqual('CUSTOM');
+  });
+
+  test('Server should use default object rule', async () => {
+    const query = gql`
+      query {
+        test {
+          defaultProp
+        }
+      }
+    `;
+
+    const result = await client.query({ query });
+
+    expect(result.errors[0].message).toEqual('OBJECT');
   });
 });

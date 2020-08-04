@@ -2,7 +2,12 @@ import { makeSchema } from '@nexus/schema';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import * as path from 'path';
 
-import { allow, FieldShieldResolver, nexusShield } from '../../src';
+import {
+  allow,
+  FieldShieldResolver,
+  nexusShield,
+  ObjectTypeShieldResolver,
+} from '../../src';
 import * as types from './schema';
 
 declare global {
@@ -11,6 +16,10 @@ declare global {
     FieldName extends string
   > {
     shield?: FieldShieldResolver<TypeName, FieldName>;
+  }
+
+  interface NexusGenPluginTypeConfig<TypeName extends string> {
+    shield?: ObjectTypeShieldResolver<TypeName>;
   }
 }
 

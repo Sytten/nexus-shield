@@ -5,8 +5,12 @@ import { ruleType } from '../../src';
 
 export const Test = objectType({
   name: 'Test',
+  shield: ruleType({
+    resolve(_root, _args, _ctx) {
+      throw new AuthenticationError('OBJECT');
+    },
+  }),
   definition(t) {
-    t.id('id');
     t.string('publicProp', {
       shield: ruleType({
         resolve(_root, _args, _ctx) {
@@ -28,6 +32,7 @@ export const Test = objectType({
         },
       }),
     });
+    t.string('defaultProp');
   },
 });
 
@@ -38,10 +43,10 @@ export const QueryTest = extendType({
       type: Test,
       resolve(_root, _args, _ctx) {
         return {
-          id: 'BEEF',
           publicProp: 'public',
           privateProp: 'private',
           throwProp: 'throwProp',
+          defaultProp: 'defaultProp',
         };
       },
     });
