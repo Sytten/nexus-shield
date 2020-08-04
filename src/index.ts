@@ -12,4 +12,8 @@ export {
   partial,
 } from './builders';
 export { ShieldCache } from './rules';
-export { nexusShield, FieldShieldResolver } from './plugin';
+export {
+  nexusShield,
+  FieldShieldResolver,
+  ObjectTypeShieldResolver,
+} from './plugin';
