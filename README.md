@@ -4,9 +4,6 @@
 [![codecov](https://codecov.io/gh/Sytten/nexus-shield/branch/master/graph/badge.svg)](https://codecov.io/gh/Sytten/nexus-shield)
 [![npm version](https://badge.fury.io/js/nexus-shield.svg)](https://badge.fury.io/js/nexus-shield)
 
-**STATUS: EXPERIMENTAL**
-The package has not yet been battle tested, use at your own risk and report any bug you find.
-
 ## Overview
 
 Nexus Shield is a [@nexus/schema](https://github.com/graphql-nexus/schema) plugin that helps you create an authorization layer for your application. It is a replacement for the provided authorization plugin. It is heavily inspired by [Graphql Shield](https://github.com/maticzav/graphql-shield) and reuses most of it's familiar ruling system. It takes full advantage of the type safety provided by nexus.
