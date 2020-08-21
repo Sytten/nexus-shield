@@ -9496,10 +9496,10 @@ ts-jest@26.2.0:
     semver "7.x"
     yargs-parser "18.x"
 
-ts-node-dev@1.0.0-pre.57:
-  version "1.0.0-pre.57"
-  resolved "https://registry.yarnpkg.com/ts-node-dev/-/ts-node-dev-1.0.0-pre.57.tgz#7ed94caccbb9cf0bd9d10a782d8c8f90dcbefc36"
-  integrity sha512-xxk1d1jAK5hXumW7HtsbWZja1wBte3sy+avZY/mK2RAvD22ezlJI9H4EXicDxiW3rkBO/YqTfS0L+K3HwucA9A==
+ts-node-dev@1.0.0-pre.59:
+  version "1.0.0-pre.59"
+  resolved "https://registry.yarnpkg.com/ts-node-dev/-/ts-node-dev-1.0.0-pre.59.tgz#fd84fd1f5ca280d6e1cd7503e0ae5eb10fb9d30e"
+  integrity sha512-ikXsddlZaP19rx0UHr3bEPpGnqtPa0P/nt+dgR+3Okdtysw0Wi8y1lRRJo/BEbg572iOXd2iQ1dNl1UtlTmSIA==
   dependencies:
     chokidar "^3.4.0"
     dateformat "~1.0.4-1.2.3"
