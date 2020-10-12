@@ -79,7 +79,7 @@ import { AuthenticationError } from 'apollo-server';
 const isAuthenticated = ruleType({
   resolve: (root, args, ctx) => {
     const allowed = !!ctx.user;
-    if (!allowed) return new AuthenticationError('Bearer token required');
+    if (!allowed) throw new AuthenticationError('Bearer token required');
     return allowed;
   },
 });
