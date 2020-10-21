@@ -171,9 +171,7 @@ export const generic = (rule: ShieldRule<any, any>) => <
  * Helper for partial rules
  *
  */
-export const partial = <TypeName extends string>(
-  rule: ShieldRule<TypeName, any>
-) => <
-  T extends TypeName, // NOTE: It would be best to do something with this type
+export const partial = <Type extends string>(rule: ShieldRule<Type, any>) => <
+  TypeName extends Type,
   FieldName extends string
 >(): ShieldRule<TypeName, FieldName> => rule;
