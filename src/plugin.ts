@@ -92,7 +92,11 @@ export const nexusShield = (settings: ShieldPluginSettings) => {
           : true;
 
         if (!allowed) {
-          throw options.defaultError;
+          let error = options.defaultError;
+          if (typeof error === 'function') {
+            error = await error(root, args, ctx, info);
+          }
+          throw error;
         }
 
         // Resolver
