@@ -28,7 +28,7 @@ const schema = makeSchema({
   outputs: false,
   plugins: [
     nexusShield({
-      defaultError: new ForbiddenError('DEFAULT'),
+      defaultError: () => new ForbiddenError('DEFAULT'),
       defaultRule: allow,
     }),
   ],

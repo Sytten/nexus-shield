@@ -5,7 +5,6 @@ import { ShieldContext, ShieldRule } from './rules';
 type HashFunction = (arg: { root: any; args: any }) => string;
 
 type ErrorMapper = (
-  err: Error,
   parent: any,
   args: any,
   ctx: ShieldContext,
