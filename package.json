@@ -42,7 +42,7 @@
     "jest": "26.6.3",
     "jest-mock-extended": "1.0.10",
     "prettier": "2.2.0",
-    "semantic-release": "17.2.4",
+    "semantic-release": "17.3.0",
     "ts-jest": "26.4.4",
     "ts-node": "9.0.0",
     "ts-node-dev": "1.0.0",
