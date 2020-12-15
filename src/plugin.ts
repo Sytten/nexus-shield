@@ -1,8 +1,5 @@
-import { plugin } from '@nexus/schema';
-import {
-  printedGenTyping,
-  printedGenTypingImport,
-} from '@nexus/schema/dist/utils';
+import { plugin } from 'nexus';
+import { printedGenTyping, printedGenTypingImport } from 'nexus/dist/utils';
 import * as hash from 'object-hash';
 
 import { allow } from './builders';

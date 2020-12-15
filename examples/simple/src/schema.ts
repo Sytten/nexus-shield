@@ -1,4 +1,4 @@
-import { extendType, objectType, stringArg } from '@nexus/schema';
+import { extendType, objectType, stringArg } from 'nexus';
 import { ruleType } from 'nexus-shield';
 
 export const Test = objectType({

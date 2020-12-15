@@ -1,5 +1,5 @@
-import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
+import { ArgsValue, GetGen, SourceValue } from 'nexus/dist/core';
 
 import { ShieldPluginOptions } from '../../config';
 import { ShieldContext, ShieldRule, ShieldRuleResult } from '../interface';
@@ -17,7 +17,7 @@ export class RuleRace<
    * Makes sure that at least one of them resolved to true.
    */
   async resolve(
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo,
@@ -42,7 +42,7 @@ export class RuleRace<
    * Evaluates all the rules.
    */
   async evaluate(
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo,
