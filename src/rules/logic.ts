@@ -1,5 +1,5 @@
-import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
+import { ArgsValue, GetGen, SourceValue } from 'nexus/dist/core';
 
 import { ShieldPluginOptions } from '../config';
 import { ShieldContext, ShieldRule, ShieldRuleResult } from './interface';
@@ -16,7 +16,7 @@ export class LogicRule<TypeName extends string, FieldName extends string>
    * By default logic rule resolves to false.
    */
   async resolve(
-    _root: RootValue<TypeName>,
+    _root: SourceValue<TypeName>,
     _args: ArgsValue<TypeName, FieldName>,
     _ctx: GetGen<'context'> & ShieldContext,
     _info: GraphQLResolveInfo,
@@ -29,7 +29,7 @@ export class LogicRule<TypeName extends string, FieldName extends string>
    * Evaluates all the rules.
    */
   async evaluate(
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo,

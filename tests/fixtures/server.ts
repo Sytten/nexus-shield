@@ -1,4 +1,4 @@
-import { makeSchema } from '@nexus/schema';
+import { makeSchema } from 'nexus';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import * as path from 'path';
 
