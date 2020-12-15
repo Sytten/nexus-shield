@@ -1,4 +1,4 @@
-import { extendType, objectType, stringArg } from '@nexus/schema';
+import { extendType, objectType, stringArg } from 'nexus';
 
 import { chain, partial, ruleType } from 'nexus-shield';
 import { isAuthenticated, isAdmin } from './rules';

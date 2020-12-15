@@ -1,5 +1,5 @@
-import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
+import { ArgsValue, GetGen, SourceValue } from 'nexus/dist/core';
 
 import { ShieldPluginOptions } from '../config';
 import {
@@ -28,7 +28,7 @@ export class BaseRule<TypeName extends string, FieldName extends string>
   }
 
   async resolve(
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo,
@@ -56,7 +56,7 @@ export class BaseRule<TypeName extends string, FieldName extends string>
   private cacheable(
     key: string
   ): (
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo

@@ -1,7 +1,7 @@
 import { allow, nexusShield } from 'nexus-shield';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import * as path from 'path';
-import { makeSchema } from '@nexus/schema';
+import { makeSchema } from 'nexus';
 
 import * as types from './schema';
 
