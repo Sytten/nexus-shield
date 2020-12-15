@@ -1,4 +1,4 @@
-import { extendType, objectType } from '@nexus/schema';
+import { extendType, objectType } from 'nexus';
 import { AuthenticationError } from 'apollo-server';
 
 import { ruleType } from '../../src';

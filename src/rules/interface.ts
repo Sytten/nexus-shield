@@ -1,5 +1,5 @@
-import { ArgsValue, GetGen, RootValue } from '@nexus/schema/dist/core';
 import { GraphQLResolveInfo } from 'graphql';
+import { ArgsValue, GetGen, SourceValue } from 'nexus/dist/core';
 
 import { ShieldPluginOptions } from '../config';
 
@@ -27,7 +27,7 @@ export interface ShieldRuleOptions {
 
 export interface ShieldRule<TypeName extends string, FieldName extends string> {
   resolve(
-    root: RootValue<TypeName>,
+    root: SourceValue<TypeName>,
     args: ArgsValue<TypeName, FieldName>,
     ctx: GetGen<'context'> & ShieldContext,
     info: GraphQLResolveInfo,
@@ -40,7 +40,7 @@ export type ShieldRuleFunction<
   TypeName extends string,
   FieldName extends string
 > = (
-  root: RootValue<TypeName>,
+  root: SourceValue<TypeName>,
   args: ArgsValue<TypeName, FieldName>,
   ctx: GetGen<'context'>,
   info: GraphQLResolveInfo
