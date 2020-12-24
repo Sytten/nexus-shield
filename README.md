@@ -265,6 +265,8 @@ ruleType({
 
 ### Known issues / limitations
 
+- Currently the typing of the `shield` parameter on `objectType` doesn't work. Tracked by issue: https://github.com/Sytten/nexus-shield/issues/50
+
 - It is not possible to pass directly an `objectType` to the parameter `type` of a `ruleType`. Tracked by issue: https://github.com/graphql-nexus/schema/issues/451
 
 - The helpers are necessary to provide strong typing and avoid the propagation of `any`. See [this StackOverflow issue](https://stackoverflow.com/questions/62363077/combining-typescript-generics-with-any-without-losing-type/62435780#62435780) for more on the subject.
