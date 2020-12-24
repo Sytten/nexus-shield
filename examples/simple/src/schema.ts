@@ -1,4 +1,4 @@
-import { extendType, objectType, stringArg } from 'nexus';
+import { extendType, nonNull, objectType, stringArg } from 'nexus';
 import { ruleType } from 'nexus-shield';
 
 export const Test = objectType({
@@ -7,7 +7,7 @@ export const Test = objectType({
     t.id('id');
     t.string('prop', {
       args: {
-        filter: stringArg({ nullable: false }),
+        filter: nonNull(stringArg()),
       },
       shield: ruleType({
         resolve(_root, _args, _ctx) {
