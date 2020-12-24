@@ -12,14 +12,9 @@ const schema = makeSchema({
     schema: path.join(__dirname, 'api.graphql'),
     typegen: path.join(__dirname.replace(/\/dist$/, '/src'), 'typegen.ts'),
   },
-  typegenAutoConfig: {
-    sources: [
-      {
-        source: path.join(__dirname.replace(/\/dist$/, '/src'), './context.ts'),
-        alias: 'ctx',
-      },
-    ],
-    contextType: 'ctx.Context',
+  contextType: {
+    module: path.join(__dirname.replace(/\/dist$/, '/src'), './context.ts'),
+    export: 'Context',
   },
   plugins: [
     nexusShield({

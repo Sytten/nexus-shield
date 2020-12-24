@@ -1,4 +1,4 @@
-import { extendType, objectType, stringArg } from 'nexus';
+import { extendType, nonNull, objectType, stringArg } from 'nexus';
 
 import { chain, partial, ruleType } from 'nexus-shield';
 import { isAuthenticated, isAdmin } from './rules';
@@ -21,7 +21,7 @@ export const Test = objectType({
     t.string('ownerId');
     t.string('ownerProp', {
       args: {
-        filter: stringArg({ nullable: false }),
+        filter: nonNull(stringArg()),
       },
       shield: viewerIsOwner(),
     });

@@ -5,16 +5,17 @@ import { makeSchema } from 'nexus';
 
 import * as types from './schema';
 
+export type Context = {
+  user: string;
+};
+
 const schema = makeSchema({
   types,
   outputs: {
     schema: path.join(__dirname, 'api.graphql'),
     typegen: path.join(__dirname.replace(/\/dist$/, '/src'), 'typegen.ts'),
   },
-  typegenAutoConfig: {
-    sources: [],
-    contextType: '{ user: string }',
-  },
+  contextType: { module: __filename, export: 'Context' },
   plugins: [
     nexusShield({
       defaultError: new ForbiddenError('Not allowed'),
