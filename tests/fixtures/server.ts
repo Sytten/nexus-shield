@@ -1,5 +1,5 @@
-import { makeSchema } from 'nexus';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
+import { makeSchema } from 'nexus';
 import * as path from 'path';
 
 import {
