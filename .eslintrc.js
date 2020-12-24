@@ -25,7 +25,7 @@ module.exports = {
     },
   },
   rules: {
-    'simple-import-sort/sort': 'error',
+    'simple-import-sort/imports': 'error',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
