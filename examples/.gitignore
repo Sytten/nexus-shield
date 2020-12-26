@@ -1,3 +1,5 @@
 **/yarn.lock
 **/*.graphql
 **/typegen.ts
+**/typegenNexus.ts
+**/*.db
