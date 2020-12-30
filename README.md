@@ -199,7 +199,7 @@ t.string('prop', {
 
 #### Partial rules
 
-- Generic rules are rules that depend only on the type of the `root`.
+- Partial rules are rules that depend only on the type of the `root`.
 - The wrapper `partial` is provided for this purpose. It will wrap your rule in a generic function.
 
 ```typescript
