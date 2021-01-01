@@ -4,6 +4,11 @@
 [![codecov](https://codecov.io/gh/Sytten/nexus-shield/branch/master/graph/badge.svg)](https://codecov.io/gh/Sytten/nexus-shield)
 [![npm version](https://badge.fury.io/js/nexus-shield.svg)](https://badge.fury.io/js/nexus-shield)
 
+## Help Wanted ⚠️
+
+If you are a Typescript expert, I could use a hand on a lingering typing issue when a shield parameter is added to an objectType.
+Please see the related [issue](https://github.com/Sytten/nexus-shield/issues/50) for details. Thanks!
+
 ## Overview
 
 Nexus Shield is a [nexus](https://github.com/graphql-nexus/nexus) plugin that helps you create an authorization layer for your application. It is a replacement for the provided authorization plugin. It is heavily inspired by [Graphql Shield](https://github.com/maticzav/graphql-shield) and reuses most of it's familiar ruling system. It takes full advantage of the type safety provided by nexus.
