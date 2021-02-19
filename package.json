@@ -30,7 +30,7 @@
     "apollo-server-testing": "2.21.0",
     "codecov": "3.8.1",
     "coveralls": "3.1.0",
-    "eslint": "7.19.0",
+    "eslint": "7.20.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-import-resolver-typescript": "2.3.0",
     "eslint-plugin-import": "2.22.1",
