@@ -64,7 +64,7 @@ export const rule = (options?: ShieldRuleOptions) => <
  *
  */
 
-type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
+export type ShieldRuleConfig<TypeName extends string, FieldName extends string> = {
   type?: TypeName;
   name?: string;
   cache?: ShieldCache;
