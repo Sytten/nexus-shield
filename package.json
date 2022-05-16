@@ -37,7 +37,7 @@
     "eslint-plugin-jest": "24.7.0",
     "eslint-plugin-prettier": "3.4.1",
     "eslint-plugin-simple-import-sort": "7.0.0",
-    "graphql": "15.7.2",
+    "graphql": "16.5.0",
     "graphql-tools": "7.0.5",
     "jest": "26.6.3",
     "jest-mock-extended": "1.0.18",
@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "nexus": "^1.0.0",
-    "graphql": "^14.5.0 || ^15.0.0"
+    "graphql": "^14.5.0 || ^15.0.0 || ^16.0.0"
   },
   "files": [
     "dist"
