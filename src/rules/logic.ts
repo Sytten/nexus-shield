@@ -5,7 +5,8 @@ import { ShieldPluginOptions } from '../config';
 import { ShieldContext, ShieldRule, ShieldRuleResult } from './interface';
 
 export class LogicRule<TypeName extends string, FieldName extends string>
-  implements ShieldRule<TypeName, FieldName> {
+  implements ShieldRule<TypeName, FieldName>
+{
   protected rules: ShieldRule<TypeName, FieldName>[];
 
   constructor(rules: ShieldRule<TypeName, FieldName>[]) {

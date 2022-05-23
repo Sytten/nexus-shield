@@ -1,18 +1,8 @@
 import { gql } from 'apollo-server';
-import {
-  ApolloServerTestClient,
-  createTestClient,
-} from 'apollo-server-testing';
 
 import { server } from './fixtures/server';
 
 describe('Integration tests', () => {
-  let client: ApolloServerTestClient;
-
-  beforeAll(() => {
-    client = createTestClient(server);
-  });
-
   test('Server should return data', async () => {
     const query = gql`
       query {
@@ -22,7 +12,7 @@ describe('Integration tests', () => {
       }
     `;
 
-    const result = await client.query({ query });
+    const result = await server.executeOperation({ query });
 
     expect(result.data).toEqual({ test: { publicProp: 'public' } });
   });
@@ -36,7 +26,7 @@ describe('Integration tests', () => {
       }
     `;
 
-    const result = await client.query({ query });
+    const result = await server.executeOperation({ query });
 
     expect(result.errors[0].message).toEqual('DEFAULT');
   });
@@ -50,7 +40,7 @@ describe('Integration tests', () => {
       }
     `;
 
-    const result = await client.query({ query });
+    const result = await server.executeOperation({ query });
 
     expect(result.errors[0].message).toEqual('CUSTOM');
   });
@@ -64,7 +54,7 @@ describe('Integration tests', () => {
       }
     `;
 
-    const result = await client.query({ query });
+    const result = await server.executeOperation({ query });
 
     expect(result.errors[0].message).toEqual('OBJECT');
   });

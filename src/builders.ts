@@ -33,15 +33,14 @@ import {
  * })
  *
  */
-export const rule = (options?: ShieldRuleOptions) => <
-  TypeName extends string,
-  FieldName extends string
->(
-  func: ShieldRuleFunction<TypeName, FieldName>
-): ShieldRule<TypeName, FieldName> => {
-  options = options || {};
-  return new BaseRule<TypeName, FieldName>(options, func);
-};
+export const rule =
+  (options?: ShieldRuleOptions) =>
+  <TypeName extends string, FieldName extends string>(
+    func: ShieldRuleFunction<TypeName, FieldName>
+  ): ShieldRule<TypeName, FieldName> => {
+    options = options || {};
+    return new BaseRule<TypeName, FieldName>(options, func);
+  };
 
 /**
  *
@@ -164,17 +163,23 @@ export const deny = new RuleFalse();
  * Helper for generic rules
  *
  */
-export const generic = (rule: ShieldRule<any, any>) => <
-  TypeName extends string,
-  FieldName extends string
->(): ShieldRule<TypeName, FieldName> => rule;
+export const generic =
+  (rule: ShieldRule<any, any>) =>
+  <TypeName extends string, FieldName extends string>(): ShieldRule<
+    TypeName,
+    FieldName
+  > =>
+    rule;
 
 /**
  *
  * Helper for partial rules
  *
  */
-export const partial = <Type extends string>(rule: ShieldRule<Type, any>) => <
-  TypeName extends Type,
-  FieldName extends string
->(): ShieldRule<TypeName, FieldName> => rule;
+export const partial =
+  <Type extends string>(rule: ShieldRule<Type, any>) =>
+  <TypeName extends Type, FieldName extends string>(): ShieldRule<
+    TypeName,
+    FieldName
+  > =>
+    rule;

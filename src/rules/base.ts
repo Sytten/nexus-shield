@@ -12,7 +12,8 @@ import {
 } from './interface';
 
 export class BaseRule<TypeName extends string, FieldName extends string>
-  implements ShieldRule<TypeName, FieldName> {
+  implements ShieldRule<TypeName, FieldName>
+{
   readonly name: string;
 
   private cache: ShieldCache;
