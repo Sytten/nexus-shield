@@ -1,4 +1,3 @@
-import { nexusPrisma } from 'nexus-plugin-prisma';
 import { allow, nexusShield } from 'nexus-shield';
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import * as path from 'path';
@@ -17,17 +16,15 @@ const schema = makeSchema({
     module: path.join(__dirname.replace(/\/dist$/, '/src'), './context.ts'),
     export: 'Context',
   },
-  plugins: [
-    nexusPrisma({
-      experimentalCRUD: true,
-      prismaClient: (ctx) => ctx.prisma,
-      outputs: {
-        typegen: path.join(
-          __dirname.replace(/\/dist$/, '/src'),
-          'typegenNexus.ts'
-        ),
+  sourceTypes: {
+    modules: [
+      {
+        alias: 'db',
+        module: '.prisma/client/index.d.ts',
       },
-    }),
+    ],
+  },
+  plugins: [
     nexusShield({
       defaultError: new ForbiddenError('Not allowed'),
       defaultRule: allow,
