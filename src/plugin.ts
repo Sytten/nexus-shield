@@ -76,7 +76,12 @@ export const nexusShield = (settings: ShieldPluginSettings) => {
 
       return async (root, args, ctx, info, next) => {
         // Cache
-        const shieldCtx = ctx as ShieldContext;
+        const shieldCtx = (ctx ?? {
+          _shield: {
+            cache: {},
+          },
+        }) as ShieldContext;
+        
         if (!shieldCtx._shield) {
           shieldCtx._shield = {
             cache: {},
