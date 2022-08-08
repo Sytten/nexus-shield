@@ -11,7 +11,7 @@ Please see the related [issue](https://github.com/Sytten/nexus-shield/issues/50)
 
 ## Overview
 
-Nexus Shield is a [nexus](https://github.com/graphql-nexus/nexus) plugin that helps you create an authorization layer for your application. It is a replacement for the provided authorization plugin. It is heavily inspired by [Graphql Shield](https://github.com/maticzav/graphql-shield) and reuses most of it's familiar ruling system. It takes full advantage of the type safety provided by nexus.
+Nexus Shield is a [nexus](https://github.com/graphql-nexus/nexus) plugin that helps you create an authorization layer for your application. It is a replacement for the provided authorization plugin. It is heavily inspired by [Graphql Shield](https://github.com/maticzav/graphql-shield) and reuses most of its familiar ruling system. It takes full advantage of the type safety provided by nexus.
 
 ## Install
 
@@ -50,9 +50,30 @@ const schema = makeSchema({
 });
 ```
 
+#### Subscriptions configuration
+
+- When using subscriptions with a server that is not integrated directly into your "main" GraphQL server, you **must** make sure that you pass in a valid context.
+- This context should contain all the information needed to evaluate the rules. Ideally, it is the same as the context for your "main" server otherwise the typing won't reflect the data available to the rules.
+
+For example, using [GraphQL-WS](https://github.com/enisdenjo/graphql-ws):
+
+```typescript
+useServer(
+  {
+    schema,
+    context: (ctx, msg, args) => {
+      // That will return the same context that was passed when the
+      // server received the subscription request
+      return ctx;
+    },
+  },
+  wsServer
+);
+```
+
 ### Styles
 
-Two interfaces styles are provided for convenience: `Graphql-Shield` and `Nexus`.
+Two interface styles are provided for convenience: `Graphql-Shield` and `Nexus`.
 
 #### Graphql-Shield
 
@@ -234,7 +255,7 @@ const viewerIsAuthorized = partial<'Product'>(
 );
 ```
 
-However, if you specify it directly in the `shield` field, there is not need for an helper thus no need for a parameter.
+However, if you specify it directly in the `shield` field, there is no need for a helper thus no need for a parameter.
 
 ```typescript
 t.string('prop', {
@@ -244,7 +265,7 @@ t.string('prop', {
 
 ### Caching
 
-- The result of a rule can be cached to maximize performances. This is important when using generic or partial rules that require access to external data.
+- The result of a rule can be cached to maximize performance. This is important when using generic or partial rules that require access to external data.
 - The caching is **always** scoped to the request
 
 The plugin offers 3 levels of caching:
@@ -270,7 +291,7 @@ ruleType({
 
 ### Known issues / limitations
 
-- Currently the typing of the `shield` parameter on `objectType` doesn't work. Tracked by issue: https://github.com/Sytten/nexus-shield/issues/50
+- Currently, the typing of the `shield` parameter on `objectType` doesn't work. Tracked by issue: https://github.com/Sytten/nexus-shield/issues/50
 
 - It is not possible to pass directly an `objectType` to the parameter `type` of a `ruleType`. Tracked by issue: https://github.com/graphql-nexus/schema/issues/451
 

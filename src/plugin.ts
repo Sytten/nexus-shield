@@ -76,7 +76,10 @@ export const nexusShield = (settings: ShieldPluginSettings) => {
 
       return async (root, args, ctx, info, next) => {
         // Cache
-        const shieldCtx = ctx as ShieldContext;
+        const shieldCtx = ctx as ShieldContext | undefined;
+        if (!shieldCtx) {
+          throw new Error('Missing resolver context, aborting!');
+        }
         if (!shieldCtx._shield) {
           shieldCtx._shield = {
             cache: {},
